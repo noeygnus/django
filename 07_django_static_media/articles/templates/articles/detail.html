@@ -5,6 +5,11 @@
   <hr>
   <p>제목: {{ article.title }}</p>
   <p>내용: {{ article.content }}</p>
+  <p>
+    {% if article.image %}
+      <img src="{{ article.image.url }}" alt="upload image">
+    {% endif %}
+  </p>
   <p>작성일: {{ article.created_at }}</p>
   <p>수정일: {{ article.updated_at }}</p>
   <hr>

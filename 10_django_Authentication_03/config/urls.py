@@ -23,8 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('articles/', include('articles.urls')),
     path('accounts/', include('accounts.urls')),
-    
-    # authentication system 의 정의된 기능을 사용할 수 있는 url
-    # 참고 : https://docs.djangoproject.com/en/5.2/topics/auth/default/#module-django.contrib.auth.views
-    # path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

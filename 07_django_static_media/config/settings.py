@@ -124,9 +124,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIR = [
-    BASE_DIR / 'static', # 공통으로 사용할 static file이 위치하는 폴더 경로
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',    # 공통으로 사용할 static file이 위치하는 폴더 경로
 ]
 
-MEDIA_ROOT = BASE_DIR / 'media',
+# 실제로 업로드되는 파일이 위치할 곳
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = 'media/'

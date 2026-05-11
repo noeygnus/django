@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="{% static "stylesheets/style.css" %}">
   <img src="{% static "logo.png" %}" alt="logo">
   <h1>글 목록</h1>
+  <!-- 로그인을 했을 때 -->
   {% if request.user.is_authenticated %}
     <p>Hello, {{ user.username }}</p>
     <!-- 로그 아웃 -->
@@ -17,7 +18,8 @@
       {% csrf_token %}
       <input type="submit" value="회원탈퇴">
     </form>
-    <a href="{% url "accounts:update" %}">회원정보 수정</a> |
+    <!-- 회원 정보 수정 -->
+    <a href="{% url "accounts:update" %}">회원정보 수정</a> | 
     <a href="{% url "articles:create" %}">CREATE</a>
   {% else %}
     <!-- 로그인 -->

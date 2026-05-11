@@ -135,5 +135,4 @@ MEDIA_URL = 'media/'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-# 비밀번호 초기화 메일 송부시 초기화 메일을 터미널로 받을 수 있도록 하는 설정 (개발용)
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

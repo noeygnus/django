@@ -5,7 +5,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
-from .forms import CustomUserCreationForm ,CustomUserChangeForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 # Create your views here.
 def login(request):
@@ -59,6 +59,7 @@ def delete(request):
     return redirect('articles:index')
 
 
+@login_required
 def update(request):
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
@@ -66,7 +67,7 @@ def update(request):
             form.save()
             return redirect('articles:index')
     else:
-        form = CustomUserChangeForm()
+        form = CustomUserChangeForm(instance=request.user)  # 로그인한 유저 정보를 설정
     
     context = {
         'form': form,
@@ -79,15 +80,11 @@ def password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            # 비밀번호 변경으로 session data가 변경되면서 로그인이 풀림 
-            # (기존 데이터와 일치하기 않는 문제 발생)
-            # 세션 데이터를 업데이트 하면서 로그인을 유지시켜 줌
             update_session_auth_hash(request, user)
             return redirect('articles:index')
     else:
-        # PasswordChangeForm 은 첫 번째 인자로 유저정보가 필요함
         form = PasswordChangeForm(request.user)
-    
+
     context = {
         'form': form,
     }

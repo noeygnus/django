@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Article
 from .forms import ArticleForm
 
@@ -10,6 +11,7 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
+@login_required
 def create(request):
     # 사용자가 form을 작성하고 '제출' 버튼을 눌렀을 때 (POST method) - 기존 create 함수
     if request.method == 'POST':
@@ -37,12 +39,14 @@ def detail(request, article_id):
     return render(request, 'articles/detail.html', context)
 
 
+@login_required
 def delete(request, article_id):
     article = Article.objects.get(pk=article_id)
     article.delete()
     return redirect('articles:index')
 
 
+@login_required
 def update(request, article_id):
     # 1. 수정할 게시글을 DB에서 가져오기 (edit, update 함수 공통)
     article = Article.objects.get(pk=article_id)

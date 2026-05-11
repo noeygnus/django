@@ -14,8 +14,7 @@ def index(request):
 def create(request):
     # 사용자가 form을 작성하고 '제출' 버튼을 눌렀을 때 (POST method) - 기존 create 함수
     if request.method == 'POST':
-        print(request.POST, 9999999999999)
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save()
             return redirect('articles:detail', article.pk)
@@ -50,7 +49,7 @@ def update(request, article_id):
     article = Article.objects.get(pk=article_id)
 
     if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             form.save()
             return redirect('articles:detail', article.pk)
@@ -63,5 +62,3 @@ def update(request, article_id):
         'article': article, # 어떤 글을 수정하는지 게시글 pk를 URL로 전달하기 위해 필요
     }
     return render(request, 'articles/update.html', context)
-
-
